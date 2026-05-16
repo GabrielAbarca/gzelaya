@@ -134,10 +134,12 @@ header {
     justify-content: center;
 }
 
-h1 {
+#hero-text {
     font-size: clamp(3rem, 8vw, 8rem);
     line-height: 1.1;
     letter-spacing: -0.02em;
+    font-weight: 400;
+    margin-bottom: 0;
     transition: opacity 0.5s var(--easing), transform 0.5s var(--easing);
 }
 
@@ -253,12 +255,13 @@ h1 {
     margin-bottom: 2rem;
 }
 
-h2 {
+h1, h2 {
     font-size: clamp(2rem, 5vw, 4rem);
     margin-bottom: 1rem;
     font-weight: 700;
 }
 
+h1 .about-subtitle,
 h2 .about-subtitle {
     margin-bottom: 2rem;
      font-size: clamp(2rem, 5vw, 4rem);
@@ -489,6 +492,10 @@ footer .container {
 
 /* Responsive */
 @media (max-width: 768px) {
+    .cursor-dot,
+    .cursor-outline {
+        display: none;
+    }
     .hero-footer {
         flex-direction: column;
         gap: 2rem;
@@ -616,6 +623,10 @@ footer .container {
 
 /* Responsive adjustments for Contact */
 @media (max-width: 900px) {
+    .cursor-dot,
+    .cursor-outline {
+        display: none;
+    }
     .contact-grid {
         grid-template-columns: 1fr;
     }
