@@ -1,0 +1,71 @@
+---
+---
+
+<section id="hero" class="hero">
+	<div class="hero-content">
+		
+		<div class="hero-text-container">
+			<h1 id="hero-text" class="delay-1">I Create Authentic Solutions</h1>
+		</div>
+		
+		<div class="hero-footer fade-in delay-2">
+			<div class="stat-item">
+				<span class="stat-number">5+</span>
+				<span class="stat-label">Clients Satisfied</span>
+			</div>
+			
+			<a href="#contact" class="download-cv-btn">
+				Let's talk
+				<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<line x1="5" y1="12" x2="19" y2="12"></line>
+					<polyline points="12 5 19 12 12 19"></polyline>
+				</svg>
+			</a>
+
+			<div class="stat-item">
+				<span class="stat-number">10+</span>
+				<span class="stat-label">Projects Delivered</span>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Mod 5: Background Animation -->
+	<div class="hero-background">
+		<div class="grid-container"></div>
+	</div>
+</section>
+
+<script>
+	// Hero Text Rotation
+	const phrases = ['Digital Experiences', 'Professional Interfaces', 'Minimalist Code'];
+	const heroText = document.getElementById('hero-text');
+	let currentIndex = 0;
+
+	if (heroText) {
+		heroText.style.opacity = '0';
+		heroText.style.transform = 'translateY(20px)';
+
+		setTimeout(() => {
+			heroText.style.transition = 'opacity 600ms var(--easing), transform 600ms var(--easing)';
+			heroText.style.opacity = '1';
+			heroText.style.transform = 'translateY(0px)';
+		}, 350);
+
+		setInterval(() => {
+			heroText.style.transition = 'opacity 350ms ease-out, transform 350ms ease-out';
+			heroText.style.opacity = '0';
+			heroText.style.transform = 'translateY(-20px)';
+
+			setTimeout(() => {
+				currentIndex = (currentIndex + 1) % phrases.length;
+				heroText.textContent = phrases[currentIndex];
+				heroText.style.transition = 'none';
+				heroText.style.transform = 'translateY(20px)';
+				void heroText.offsetWidth;
+				heroText.style.transition = 'opacity 500ms cubic-bezier(0.16, 1, 0.3, 1), transform 500ms cubic-bezier(0.16, 1, 0.3, 1)';
+				heroText.style.opacity = '1';
+				heroText.style.transform = 'translateY(0)';
+			}, 350);
+		}, 4000);
+	}
+</script>
