@@ -1,0 +1,96 @@
+---
+---
+
+<section id="contact" class="section">
+	<div class="container contact-grid">
+		<div class="contact-content">
+			<span class="section-label">04 / Contact</span>
+			<h2>Let's get in touch!</h2>
+			
+			<form class="contact-form">
+				<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+				<div class="form-group">
+					<input type="text" id="name" name="name" placeholder="Your Name" required>
+				</div>
+				<div class="form-group">
+					<input type="email" id="email" name="email" placeholder="Your Email" required>
+				</div>
+				<div class="form-group">
+					<input type="text" id="subject" name="subject" placeholder="Subject" required>
+				</div>
+				<div class="form-group">
+					<textarea id="message" name="message" rows="4" placeholder="Your Message" required></textarea>
+				</div>
+				<button type="submit" class="submit-btn">Send Message</button>
+			</form>
+		</div>
+		
+		<div class="contact-visuals">
+			<div class="visual-card card-1"></div>
+			<div class="visual-card card-2"></div>
+		</div>
+	</div>
+</section>
+
+<script>
+	// Contact Form
+	const form = document.querySelector('.contact-form') as HTMLFormElement | null;
+	const submitBtn = document.querySelector('.submit-btn') as HTMLButtonElement | null;
+
+	if (form && submitBtn) {
+		const originalBtnText = submitBtn.textContent;
+		
+		// Create status message container
+		const statusMessage = document.createElement('div');
+		statusMessage.className = 'form-status';
+		form.appendChild(statusMessage);
+
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+
+			// Update UI to loading state
+			submitBtn.textContent = 'Sending...';
+			submitBtn.disabled = true;
+			statusMessage.classList.remove('visible');
+
+			try {
+				const res = await fetch('/api/contact', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						name: (form.elements.namedItem('name') as HTMLInputElement).value,
+						email: (form.elements.namedItem('email') as HTMLInputElement).value,
+						message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
+						_honey: (form.elements.namedItem('_honey') as HTMLInputElement).value,
+					}),
+				});
+
+				const data = await res.json();
+				
+				if (res.ok) {
+					// Success state
+					statusMessage.textContent = 'Message sent successfully! I will get back to you soon.';
+					statusMessage.className = 'form-status success visible';
+					form.reset(); // Clear out the fields
+				} else {
+					// Error state from server
+					statusMessage.textContent = data.error || 'Failed to send message. Please try again.';
+					statusMessage.className = 'form-status error visible';
+				}
+			} catch (error) {
+				// Network or other error
+				statusMessage.textContent = 'An error occurred. Please try again later.';
+				statusMessage.className = 'form-status error visible';
+			} finally {
+				// Restore button state
+				submitBtn.textContent = originalBtnText;
+				submitBtn.disabled = false;
+				
+				// Hide message after 5 seconds
+				setTimeout(() => {
+					statusMessage.classList.remove('visible');
+				}, 5000);
+			}
+		});
+	}
+</script>

@@ -1,0 +1,89 @@
+---
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Gabriel Zelaya - Personal Portfolio" />
+		<meta name="viewport" content="width=device-width" />
+
+	<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<link rel="shortcut icon" href="/favicon.ico" />
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+	<link rel="manifest" href="/site.webmanifest" />
+
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+		<title>{title}</title>
+		<Analytics />
+		<SpeedInsights />
+	</head>
+	<body>
+		<div class="cursor-dot"></div>
+		<div class="cursor-outline"></div>
+		<slot />
+		<script>
+			
+
+			// Section Fade-In Observer
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('visible');
+						observer.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.1 });
+
+			document.querySelectorAll('.section').forEach(section => {
+				observer.observe(section);
+			});
+
+			// Custom Cursor Logic
+			const cursorDot = document.querySelector('.cursor-dot') as HTMLElement;
+			const cursorOutline = document.querySelector('.cursor-outline') as HTMLElement;
+
+			if (cursorDot && cursorOutline) {
+				// Add transition for smooth scaling
+				cursorDot.style.transition = 'transform 0.3s ease';
+
+				window.addEventListener('mousemove', (e) => {
+					const posX = e.clientX;
+					const posY = e.clientY;
+
+					cursorDot.style.left = `${posX}px`;
+					cursorDot.style.top = `${posY}px`;
+
+					cursorOutline.animate({
+						left: `${posX}px`,
+						top: `${posY}px`
+					}, { duration: 500, fill: "forwards" });
+				});
+
+				const hoverables = document.querySelectorAll('a, button, .project-card, .download-cv-btn');
+				
+				hoverables.forEach(el => {
+					el.addEventListener('mouseenter', () => {
+						// Scale dot to fill 90% of outline (Outline 40px * 0.9 = 36px. Dot 8px. 36/8 = 4.5)
+						cursorDot.style.transform = 'translate(-50%, -50%) scale(2.8)';
+					});
+					
+					el.addEventListener('mouseleave', () => {
+						cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+					});
+				});
+			}
+			
+		</script>
+	</body>
+</html>
