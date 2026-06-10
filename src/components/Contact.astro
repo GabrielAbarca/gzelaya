@@ -27,20 +27,17 @@
 		
 		<div class="contact-visuals">
 			<div class="visual-card card-1"></div>
-			<div class="visual-card card-2"></div>
 		</div>
 	</div>
 </section>
 
 <script>
-	// Contact Form
 	const form = document.querySelector('.contact-form') as HTMLFormElement | null;
 	const submitBtn = document.querySelector('.submit-btn') as HTMLButtonElement | null;
 
 	if (form && submitBtn) {
 		const originalBtnText = submitBtn.textContent;
 		
-		// Create status message container
 		const statusMessage = document.createElement('div');
 		statusMessage.className = 'form-status';
 		form.appendChild(statusMessage);
@@ -48,7 +45,6 @@
 		form.addEventListener('submit', async (e) => {
 			e.preventDefault();
 
-			// Update UI to loading state
 			submitBtn.textContent = 'Sending...';
 			submitBtn.disabled = true;
 			statusMessage.classList.remove('visible');
@@ -68,25 +64,20 @@
 				const data = await res.json();
 				
 				if (res.ok) {
-					// Success state
 					statusMessage.textContent = 'Message sent successfully! I will get back to you soon.';
 					statusMessage.className = 'form-status success visible';
-					form.reset(); // Clear out the fields
+					form.reset();
 				} else {
-					// Error state from server
 					statusMessage.textContent = data.error || 'Failed to send message. Please try again.';
 					statusMessage.className = 'form-status error visible';
 				}
 			} catch (error) {
-				// Network or other error
 				statusMessage.textContent = 'An error occurred. Please try again later.';
 				statusMessage.className = 'form-status error visible';
 			} finally {
-				// Restore button state
 				submitBtn.textContent = originalBtnText;
 				submitBtn.disabled = false;
 				
-				// Hide message after 5 seconds
 				setTimeout(() => {
 					statusMessage.classList.remove('visible');
 				}, 5000);

@@ -15,17 +15,25 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   if (
-    !name || typeof name !== 'string' || name.trim() === '' ||
-    !email || typeof email !== 'string' || email.trim() === '' ||
-    !message || typeof message !== 'string' || message.trim() === ''
+    !name ||
+    typeof name !== "string" ||
+    name.trim() === "" ||
+    !email ||
+    typeof email !== "string" ||
+    email.trim() === "" ||
+    !message ||
+    typeof message !== "string" ||
+    message.trim() === ""
   ) {
-    return new Response(JSON.stringify({ error: "Missing or invalid fields" }), {
-      status: 422,
-      headers: { "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({ error: "Missing or invalid fields" }),
+      {
+        status: 422,
+        headers: { "Content-Type": "application/json" },
+      },
+    );
   }
 
-  // Email validation using validator.js
   if (!validator.isEmail(email)) {
     return new Response(JSON.stringify({ error: "Invalid email format" }), {
       status: 422,
@@ -34,10 +42,13 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   if (message.length > 2000) {
-    return new Response(JSON.stringify({ error: "Message too long (max 2000 characters)" }), {
-      status: 422,
-      headers: { "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({ error: "Message too long (max 2000 characters)" }),
+      {
+        status: 422,
+        headers: { "Content-Type": "application/json" },
+      },
+    );
   }
 
   const { error } = await resend.emails.send({
