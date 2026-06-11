@@ -91,7 +91,7 @@ npm install
 
 # 3. Configure environment variables
 cp .env.example .env
-# Add your Resend API key
+# Add your Resend API key & EMAIL
 
 # 4. Start the dev server
 npm run dev
