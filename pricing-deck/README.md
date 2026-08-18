@@ -3,7 +3,9 @@
 A 10-slide pricing presentation for landing-page / web-development services,
 built to match the personal-brand design system extracted from this portfolio.
 
-**Deliverable:** `GZ-Web-Development-Packages.pptx`
+**Deliverables:**
+- `GZ-Web-Development-Packages.pptx` — English edition
+- `GZ-Paquetes-Desarrollo-Web.pptx` — Spanish edition (formal *usted*, no dashes)
 
 ## Brand system used
 
@@ -45,7 +47,8 @@ built to match the personal-brand design system extracted from this portfolio.
 cd pricing-deck
 npm install pptxgenjs sharp react react-dom react-icons   # tooling (git-ignored)
 node render-icons.cjs                                      # regenerate assets/ic-*.png
-node build.cjs                                             # -> GZ-Web-Development-Packages.pptx
+node build.cjs                                             # -> GZ-Web-Development-Packages.pptx (English)
+node build-es.cjs                                          # -> GZ-Paquetes-Desarrollo-Web.pptx (Spanish)
 ```
 
 `assets/` (grid backgrounds + icons) is committed, so `build.cjs` alone reproduces the
