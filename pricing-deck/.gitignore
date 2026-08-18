@@ -1,0 +1,6 @@
+node_modules/
+fonts/
+*.pdf
+*.log
+min.*
+slide-*.jpg
