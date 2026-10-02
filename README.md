@@ -77,8 +77,9 @@ Astro renders **zero JavaScript by default.** Only the components that need inte
 ```
 
 ### Environment Variables
-```
 RESEND_API_KEY
+```
+
 ```
 
 ---
