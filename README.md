@@ -73,34 +73,13 @@ Astro renders **zero JavaScript by default.** Only the components that need inte
 
 ---
 
-## ⚙️ Local Setup
 
-### Prerequisites
-
-- Node.js 22+
-
-### Steps
-
-```bash
-# 1. Clone the repo
-git clone https://github.com/GabrielAbarca/gzelaya.git
-cd gzelaya
-
-# 2. Install dependencies
-npm install
-
-# 3. Configure environment variables
-cp .env.example .env
-# Add your Resend API key & EMAIL
-
-# 4. Start the dev server
-npm run dev
 ```
 
 ### Environment Variables
 
-```env
-RESEND_API_KEY=your_resend_api_key
+```
+RESEND_API_KEY
 ```
 
 ---
