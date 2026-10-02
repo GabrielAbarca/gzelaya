@@ -677,4 +677,7 @@ footer .container {
   .contact-visuals {
     display: none;
   }
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
 }
